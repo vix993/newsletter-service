@@ -26,7 +26,7 @@ pub async fn subscribe(
     .execute(pool.get_ref())
     .await
     .map_err(|e| {
-        eprintln!("Failed to execute query: {}", e);
+        println!("Failed to execute query: {}", e);
         HttpResponse::InternalServerError().finish()
     })?;
     Ok(HttpResponse::Ok().finish())

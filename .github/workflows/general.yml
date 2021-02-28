@@ -21,7 +21,7 @@ jobs:
           - 5432:5432
     steps:
       - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
+      - name: Cache dependencies
         id: cache-dependencies
         uses: actions/cache@v2
         with:

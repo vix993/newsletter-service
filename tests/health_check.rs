@@ -1,8 +1,8 @@
-use sqlx::{PgPool, Connection, Executor, PgConnection};
+use sqlx::{Connection, Executor, PgConnection, PgPool};
+use std::net::TcpListener;
+use uuid::Uuid;
 use zero2prod::configuration::{get_configuration, DatabaseSettings};
 use zero2prod::startup::run;
-use uuid::Uuid;
-use std::net::TcpListener;
 
 pub struct TestApp {
     pub address: String,
@@ -16,28 +16,26 @@ async fn spawn_app() -> TestApp {
     let address = format!("http://127.0.0.1:{}", port);
     let mut configuration = get_configuration().expect("Failed to read configuration");
     configuration.database.database_name = Uuid::new_v4().to_string();
-    let connection_pool = configure_database(&configuration.database)
-        .await;
+    let connection_pool = configure_database(&configuration.database).await;
     let server = run(listener, connection_pool.clone()).expect("Failed to bind address");
     let _ = tokio::spawn(server);
 
     TestApp {
         address,
-        db_pool: connection_pool
+        db_pool: connection_pool,
     }
 }
 
 pub async fn configure_database(config: &DatabaseSettings) -> PgPool {
     //Create database
-    let mut connection =
-        PgConnection::connect(&config.connection_string_without_db())
-            .await
-            .expect("Failed to create database");
+    let mut connection = PgConnection::connect(&config.connection_string_without_db())
+        .await
+        .expect("Failed to create database");
     connection
         .execute(&*format!(r#"CREATE DATABASE "{}";"#, config.database_name))
         .await
         .expect("Failed to create database.");
-            // Migrate database
+    // Migrate database
     let connection_pool = PgPool::connect(&config.connection_string())
         .await
         .expect("Failed to connect to Postgres");
@@ -57,10 +55,10 @@ async fn health_check_works() {
 
     // Act
     let response = client
-            .get(&format!("{}/health_check", &app.address))
-            .send()
-            .await
-            .expect("Failed to execute request.");
+        .get(&format!("{}/health_check", &app.address))
+        .send()
+        .await
+        .expect("Failed to execute request.");
 
     // Assertions
     assert!(response.status().is_success());
@@ -112,7 +110,7 @@ async fn subscribe_returns_a_400_when_data_us_missing() {
     let test_cases = vec![
         ("name=le%20guin", "missing the email"),
         ("email=ursula_le_guin%40gmail.com", "missing the name"),
-        ("", "missing both name and email")
+        ("", "missing both name and email"),
     ];
 
     for (invalid_body, error_message) in test_cases {

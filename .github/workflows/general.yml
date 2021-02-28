@@ -16,6 +16,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
           POSTGRES_DB: postgres
+          POSTGRES_PORT: 7777
         ports:
           - 7777:5432
     steps:
@@ -59,6 +60,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
           POSTGRES_DB: postgres
+          POSTGRES_PORT: 7777
         ports:
           - 7777:5432
     steps:
@@ -88,6 +90,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
           POSTGRES_DB: postgres
+          POSTGRES_PORT: 7777
         ports:
           - 7777:5432
     steps:

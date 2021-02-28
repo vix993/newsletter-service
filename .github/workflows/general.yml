@@ -25,7 +25,7 @@ jobs:
           POSTGRES_DB: postgres
           POSTGRES_PORT: 7777
         ports:
-          - 5432:5432
+          - 7777:5432
     steps:
       - uses: actions/checkout@v2
       - name: Cache dependencies
@@ -78,13 +78,13 @@ jobs:
           POSTGRES_DB: postgres
           POSTGRES_PORT: 7777
         ports:
-          - 5432:5432
+          - 7777:5432
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
         with:
-          components: clippy
           toolchain: stable
+          components: clippy
           override: true
       - name: Migrate database
         run: |
@@ -108,7 +108,7 @@ jobs:
           POSTGRES_DB: postgres
           POSTGRES_PORT: 7777
         ports:
-          - 5432:5432
+          - 7777:5432
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2

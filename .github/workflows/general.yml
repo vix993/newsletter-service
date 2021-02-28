@@ -1,6 +1,13 @@
 name: Rust
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+    branches:
+      - main
 
 env:
   CARGO_TERM_COLOR: always
@@ -39,7 +46,7 @@ jobs:
         run: |
           sudo apt-get install libpq-dev -y
           cargo install --version=0.5.1 --locked sqlx-cli --no-default-features --features postgres
-          SKIP_DOCKER=false ./scripts/init_db.sh
+          SKIP_DOCKER=true ./scripts/init_db.sh
       - uses: actions-rs/cargo@v1
         with:
           command: test
@@ -83,7 +90,7 @@ jobs:
         run: |
           sudo apt-get install libpq-dev -y
           cargo install --version=0.5.1 sqlx-cli --no-default-features --features postgres
-          SKIP_DOCKER=false ./scripts/init_db.sh
+          SKIP_DOCKER=true ./scripts/init_db.sh
       - uses: actions-rs/clippy-check@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -116,7 +123,7 @@ jobs:
         run: |
           sudo apt-get install libpq-dev -y
           cargo install --version=0.5.1 sqlx-cli --no-default-features --features postgres
-          SKIP_DOCKER=false ./scripts/init_db.sh
+          SKIP_DOCKER=true ./scripts/init_db.sh
       - name: Run cargo-tarpaulin
         uses: actions-rs/tarpaulin@v0.1
         with:

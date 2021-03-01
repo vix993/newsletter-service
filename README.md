@@ -1,7 +1,37 @@
-# Rust-server
+# Newsletter Service:
 
-This project is a template setting up a Rust pipeline based on Luca Palmieri's book https://www.zero2prod.com/.
+## Content
 
-It holds a docker image that executes tarpaulin in a non Linux environment.
+1. [Motivation](#Motivation) 
+2. [Requirements](#Requirements)
+3. [Pages](#Pages)
+    - [Home](#Visit)
 
-The image is for compilation of static Rust binaries, so you might have to adapt that to your needs.
+## Motivation
+
+The motivation behind this repository is the application of backend developement principles as taught in the book [`Zero to Production`](https://www.zero2prod.com/) by Luca Palmieri.
+
+This book makes use of the robust Type system provided by the Rust programming language and its ecosystem.
+
+You can run it by cloning the repository. Installing rust and cargo. Running `cd newsletter-service`, `cargo install`, `cargo run`.
+
+You can also run the unit tests with `cargo test`.
+
+## Requirements
+
+Rust, Cargo, Actix-web, Postgres, and others.
+<!---
+## Pages
+### *Home*
+<!---
+#### timer and user details
+Click start cycle to begin your work cycle and at the end of it receive your challenge and XP on completion.
+##### /
+###### App
+<!---
+<img src="./presentation/screenshot.png" alt="screenshot of UI"/>
+<!---
+###### Level-up
+<!---
+<img src="./presentation/screenshot_levelup.png" alt="screenshot of levelup"/>
+--->
